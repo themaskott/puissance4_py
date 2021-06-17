@@ -1,3 +1,18 @@
+##################################################
+# Jeu de puissance 4  							 #
+# Joueur 1 en local								 #
+# Joueur 2 via le reseau : nc 127.0.0.1 4444     #
+#												 #
+# 												 #
+# 												 #
+##################################################
+
+__authors__ = ("Maskott")
+__contact__ = ("themaskott@gmail.com")
+__version__ = "1.0.0"
+__copyright__ = "copyleft"
+__date__ = "15/06/2012"
+
 # Import de librairies python
 
 import socket, sys, threading, random
