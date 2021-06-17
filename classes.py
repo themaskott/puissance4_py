@@ -10,41 +10,46 @@ class Joueur1:
 
 	def __init__(self):
 		self.symbole = 'X'
-		self.nbCoup = 0
 
-	def demanderEntier(self):
-		print("Entrez un entier :")
-		colone = input()
-		while( not colone.isnumeric()):
+	def recevoirMessage(self):
+		print("Entrez un entier ('FIN' pour arreter) :")
+		msg = input()
+		while( not msg.isnumeric() and msg.upper() != "FIN"):
 			print("La colone doit etre un entier :")
-			colone = input()
-		return int(colone)
+			msg = input()
+		if msg == "FIN":
+			return -1
+		else:
+			return int(msg)
+
+	def envoyerMessage(self, message):
+		print(message)
 
 	# Nom : choixColone
 	# But : Demande au joueur 1 la colone a remplir et vérifie si l'entree est correcte et disponible au jeu
 	# Entree : la grille, sa taille, le numero du joueur
 	# Sortie : retourne la colone choisie par le joueur
 	# verifie qu au moins une case est disponible dans la grille et que le numero correspond au range de la taille
+	# possibilite d arreter la partie avec 'FIN' --> -1
 
 	def choixColone(self, grille, size):
 		valid = False
 		print("Joueur 1 quelle colone ?")
-		colone = self.demanderEntier()
+		colone = self.recevoirMessage()
 		
 		while not valid:
-			if colone > 0 and colone <= size:
+			if colone == -1:
+				return -1
+			elif colone > 0 and colone <= size:
 				if grille[0][colone - 1] == '.':
 					valid = True
 				else:
 					print("Colone pleine, choisissez une autre colone")
-					colone = self.demanderEntier()
+					colone = self.recevoirMessage()
 			else:
 				print("La colone doit être comprise entre 1 et ", size)
-				colone = self.demanderEntier()
+				colone = self.recevoirMessage()
 		return colone
-
-	def envoyerMessage(self, message):
-		print(message)
 
 # Nom : Joueur2
 # Class gestion du Joueur 2 par un thread pour maintenir la socket reseau
@@ -57,21 +62,19 @@ class Joueur2(threading.Thread):
 	def __init__(self, conn):
 		threading.Thread.__init__(self)
 		self.connexion = conn
-		self.nbCoup = 0
 		self.symbole = 'O'
 		
 	def recevoirMessage(self):
-		# reception message : soit FIN, soit un entier 
-		msgJoueur2 = self.connexion.recv(1024).decode('utf-8').replace('\n','')
-		if msgJoueur2.upper() == "FIN" or msgJoueur2 =="":
-			self.shutdownSock()
+		self.envoyerMessage("Entrez un entier ('FIN' pour arreter) :")
+		msg = self.connexion.recv(1024).decode('utf-8').replace('\n','')
+		while( not msg.isnumeric() and msg.upper() != "FIN"):
+			self.envoyerMessage("La colone doit etre un entier :")
+			msg = self.connexion.recv(1024).decode('utf-8').replace('\n','')
+		if msg.upper() == "FIN":
+			return -1
 		else:
-			while ( not msgJoueur2.isnumeric() ):
-				self.envoyerMessage("La colone doit etre un entier :")
-				msgJoueur2 = self.connexion.recv(1024).decode('utf-8').replace('\n','')
-			msgJoueur2 = int(msgJoueur2)
-			return msgJoueur2  
-	
+			return int(msg)
+
 	def envoyerMessage(self, message):
 		message = message + '\n'
 		self.connexion.send(message.encode())
@@ -87,8 +90,11 @@ class Joueur2(threading.Thread):
 		valid = False
 		self.envoyerMessage("Joueur 2 quelle colone ?")
 		colone = self.recevoirMessage()
+
 		while not valid:
-			if colone > 0 and colone <= size:
+			if colone == -1:
+				return -1
+			elif colone > 0 and colone <= size:
 				if grille[0][colone - 1] == '.':
 					valid = True
 				else:

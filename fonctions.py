@@ -193,3 +193,16 @@ def Result(winner, joueur, nbTour):
 def envoyerMessage(joueur1, joueur2, message):
 	joueur1.envoyerMessage(message)
 	joueur2.envoyerMessage(message)
+
+
+# Nom : finDuJeu
+# But : clore la partie en cas de victoire, egalite ou arret par l un des joueurs
+# Entree : les deux objets joueurs, le descripteur de fichier a clore, et le message a envoyer
+# Sortie : neant
+
+
+def finDuJeu(joueur1, joueur2, fichierSauvegarde, message):
+	envoyerMessage(joueur1, joueur2, message)
+	joueur2.shutdownSock()
+	fichierSauvegarde.close()
+	exit(0)

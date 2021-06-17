@@ -6,11 +6,6 @@
 #                                                #
 ##################################################
 
-# A faire : fonction d arret propre pour stoper une parie en cours et l enregistrer
-# = 'FIN' actuellement possible pour le joueur 2
-#
-
-
 __authors__ = ("Maskott")
 __contact__ = ("themaskott@gmail.com")
 __version__ = "1.0.0"
@@ -94,12 +89,20 @@ def main():
 		# message d attente pour l un et demande de saisie de l autre joueur
 		if numJoueur == 1:
 			joueur2.envoyerMessage("En attente d un mouvement du joueur 1")	
-			colone = joueur1.choixColone(grille, TAILLEGRILLE) - 1   # Le joueur choisi une colone entre 1 et taille -> -1 pour revenir entre 0 et taille-1
-			symbole = joueur1.symbole
+			colone = joueur1.choixColone(grille, TAILLEGRILLE)   
+			if colone == -1:   # -1 sert de flag pour l arret du jeu
+				finDuJeu(joueur1, joueur2, fichierSauvegarde, "Fin de la partie, la grille est enregistree sous save.txt")
+			else:
+				colone -= 1 # Le joueur choisi une colone entre 1 et taille -> -1 pour revenir entre 0 et taille-1
+				symbole = joueur1.symbole
 		else:
 			joueur1.envoyerMessage("En attente d un mouvement du joueur 2")
-			colone = joueur2.choixColone(grille, TAILLEGRILLE) - 1
-			symbole = joueur2.symbole
+			colone = joueur2.choixColone(grille, TAILLEGRILLE)
+			if colone == -1:
+				finDuJeu(joueur1, joueur2, fichierSauvegarde, "Fin de la partie, la grille est enregistree sous save.txt")
+			else:
+				colone -= 1
+				symbole = joueur2.symbole
 
 		fichierSauvegarde.write(str(symbole) + " " + str(colone) + "\n")
 
@@ -112,11 +115,7 @@ def main():
 		numJoueur += 1
 
 	final = Result(winner, joueur, nbTour + 1)
-	joueur1.envoyerMessage(final)
-	joueur2.envoyerMessage(final)
-	joueur2.shutdownSock()
-	fichierSauvegarde.close()
-	exit(0)
+	finDuJeu(joueur1, joueur2, fichierSauvegarde, final)
 
 if __name__ == "__main__":
 	main()
