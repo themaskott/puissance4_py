@@ -3,7 +3,7 @@
 import socket, sys, threading
 
 ##################################################
-# Definition de classes							 #
+# Definition de classes                          #
 ##################################################
 
 class Joueur1:
