@@ -17,7 +17,7 @@ class Joueur1:
 		while( not msg.isnumeric() and msg.upper() != "FIN"):
 			print("La colone doit etre un entier :")
 			msg = input()
-		if msg == "FIN":
+		if msg.upper() == "FIN":
 			return -1
 		else:
 			return int(msg)
