@@ -3,7 +3,7 @@
 import socket, sys, threading, random
 
 ##################################################
-# Definition de fonctions						 #
+# Definition de fonctions                        #
 ##################################################
 
 

@@ -1,11 +1,15 @@
 ##################################################
-# Jeu de puissance 4  							 #
-# Joueur 1 en local								 #
+# Jeu de puissance 4                             #
+# Joueur 1 en local                              #
 # Joueur 2 via le reseau : nc 127.0.0.1 4444     #
-#												 #
-# 												 #
-# 												 #
+#                                                #
+#                                                #
 ##################################################
+
+# A faire : fonction d arret propre pour stoper une parie en cours et l enregistrer
+# = 'FIN' actuellement possible pour le joueur 2
+#
+
 
 __authors__ = ("Maskott")
 __contact__ = ("themaskott@gmail.com")
@@ -23,7 +27,7 @@ from classes import *
 from fonctions import *
 
 ##################################################
-# Definition de constantes 						 #
+# Definition de constantes                       #
 ##################################################
 
 HOST = '127.0.0.1'
@@ -37,13 +41,13 @@ NBPIONSVICTOIRE = 4
 
 
 ##################################################
-# Fonction principale							 #
+# Fonction principale                            #
 ##################################################
 
 def main():
 
 	# initialisation du jeu soit nouvelle grille vide soit reprise fichier sauvegarde
-	# joueur a commencer la partie, ou a reprendre celle en cours
+	# joueur a commencer la partie, ou a reprendre celle en cours et nb de tour deja joues
 	grille, fichierSauvegarde, numJoueur, nbTour = initialiserJeu(TAILLEGRILLE, "save.txt")
 
 	# initialisation du joueur 1
