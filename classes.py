@@ -40,7 +40,7 @@ class Joueur1:
 		while not valid:
 			if colone == -1:
 				return -1
-			elif colone > 0 and colone <= size:
+			elif colone > 0 and colone <= size: # pour le joueur colone dans [1, size]
 				if grille[0][colone - 1] == '.':
 					valid = True
 				else:

@@ -66,7 +66,7 @@ def initialiserJeu(size, nomFichier):
 # Entree : neant
 # Sortie : une chaine de caracteres = les regles du jeu a afficher
 
-def affichJeu(size):
+def affichJeu(nbPions):
 	message = """
 	Jeu de puissance 4
 	Joueur 1 joue avec les X
@@ -74,7 +74,7 @@ def affichJeu(size):
 
 	Le premier a aligner %d pions gagne :)
 
-	""" % size
+	""" % nbPions
 	return message
 
 
@@ -129,7 +129,7 @@ def positionnerPion(grille, size, colone, symbole):
 
 # Nom : testVictoire
 # But : a partir des coordonnees du dernier pion insere, test les conditions de voctoire
-# Entree : la grille, sa taille, ligne et colone du dernier pion, le symbole du joueur
+# Entree : la grille, sa taille, ligne et colone du dernier pion, le symbole du joueur, le nb de pions a aligner pour gagner
 # Sortie : revoie un booleen a True en cas de victoire
 
 
@@ -146,16 +146,16 @@ def testVictoire(grille, size, ligne, colone, symbole, nb):
 		if (ligne + i < size) and (colone + i < size ):
 			motifDiag1 = motifDiag1 + grille[ligne + i][colone + i]
 	for i in range(1,nb):
-		if (ligne - i > 0) and (colone - i > 0 ):
+		if (ligne - i > -1 ) and (colone - i > -1 ):
 			motifDiag1 = grille[ligne - i][colone - i] + motifDiag1	
 
 	# diagoanle 2 : x symboles en bas a gauche + x symboles en haut a droite
 	motifDiag2 = symbole
 	for i in range(1,nb):
-		if (ligne - i > 0) and (colone + i < size ):
+		if (ligne - i > -1) and (colone + i < size ):
 			motifDiag2 = motifDiag2 + grille[ligne - i][colone + i]
 	for i in range(1,nb):
-		if (ligne + i < size) and (colone - i > 0 ):
+		if (ligne + i < size) and (colone - i > -1 ):
 			motifDiag2 = grille[ligne + i][colone - i] + motifDiag2
 
 

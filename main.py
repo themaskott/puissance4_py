@@ -74,7 +74,7 @@ def main():
 	if numJoueur == 1: joueur1.envoyerMessage("Vous etes le joueur a jouer en premier :)")
 	if numJoueur == 2: joueur2.envoyerMessage("Vous etes le joueur a jouer en premier :)")
 	
-	# affichage de la grille vide pour les deux joueurs
+	# affichage de la grille initiale pour les deux joueurs
 	grilleAafficher = affichGrille(grille, TAILLEGRILLE)
 	envoyerMessage(joueur1, joueur2, grilleAafficher)
 
