@@ -114,7 +114,7 @@ def main():
 
 		numJoueur += 1
 
-	final = Result(winner, joueur, nbTour + 1)
+	final = Result(winner, joueur, nbTour)
 	finDuJeu(joueur1, joueur2, fichierSauvegarde, final)
 
 if __name__ == "__main__":

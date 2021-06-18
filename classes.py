@@ -82,7 +82,6 @@ class Joueur2(threading.Thread):
 	def shutdownSock(self):
 		# Fermeture de la connexion :
 		self.connexion.close()	  # couper la connexion cote serveur
-		print("Joueur 2 déconnecté.")
 		exit(0)
 		# Le thread se termine ici 
 
