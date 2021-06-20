@@ -93,7 +93,7 @@ def iniGrille(size):
 # But : Affichage la grille
 # Entree : nom de la grille et sa taille
 # Sortie : une chaine de caracteres = la grille prete a son affichage
-# Avec au dessus les numeros des colones
+# Avec au dessous les numeros des colones
 
 def affichGrille(grille, size):
 	out = ""
@@ -164,6 +164,10 @@ def testVictoire(grille, size, ligne, colone, symbole, nb):
 
 	return winner
 
+# Nom : testGrillePleine
+# But : cherche la presence d une case libre dans la gille (ie ligne du haut suffit)
+# Entree : la grille
+# Sortie : un booleen
 
 def testGrillePleine(grille):
 	return '.' not in grille[0]

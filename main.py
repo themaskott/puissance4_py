@@ -104,6 +104,7 @@ def main():
 				colone -= 1
 				symbole = joueur2.symbole
 
+		# sauvegarde du coup dans le fichier de sauvegarde
 		fichierSauvegarde.write(str(symbole) + " " + str(colone) + "\n")
 
 		grille, ligne = positionnerPion(grille, TAILLEGRILLE, colone, symbole)
